@@ -1,0 +1,53 @@
+<div class="apps_container">
+  <div class="row pb--15 mb--15 border-bottom">
+    <h3 class="txt txt--big txt--blue">Thank you, {{information.firstname}}</h3>
+  </div>
+
+  <div class="row mt--20 col--gap--20">
+    <div class="sideform">
+      <p class="txt txt--med txt--darkgray">Billing</p>
+      <p class="txt txt--sm txt--darkgray">{{information.address}}</p>
+      <p class="txt txt--sm txt--darkgray">{{information.city}}</p>
+      <p class="txt txt--sm txt--darkgray">{{information.state}}</p>
+      <p class="txt txt--sm txt--darkgray">{{information.zip}}</p>
+    </div>
+    <div class="summary">
+      <div class="row mb--15">
+        <span class="txt txt--med txt--blue">Summary</span>
+      </div>
+      <div id="summary">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt--sm txt--darkgray">Item</th>
+              <th class="txt--sm txt--darkgray center-cell">Quantity</th>
+              <th class="txt--sm txt--darkgray text--left">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let total of finalArray">
+              <td>
+                <p class="txt txt--sm txt--darkgray">{{total.name}}</p>
+              </td>
+              <td class="center-cell">
+                <p class="txt txt--sm txt--darkgray">{{total.current_quantity}}</p>
+              </td>
+              <td>
+                <p class="txt txt--sm txt--darkgray">${{(total.current_quantity * total.current_price) | number : '1.2-2'}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="no-border pr--10">
+                <span class="pull-right"><p class="txt txt--sm txt--darkgray"><strong>Estimated Monthly Total:</strong></p></span>
+              </td>
+              <td class="no-border">
+                <p class="txt txt--sm txt--darkgray"><strong>${{grandTotal | number : '1.2-2'}}</strong></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</div>

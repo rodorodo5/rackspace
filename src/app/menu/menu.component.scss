@@ -1,0 +1,22 @@
+.navigation_container{
+  background-color: #000000;
+  width: 100%;
+  .navbar{
+    padding-left: 20px;
+    width: 100%;
+    max-width: 1170px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    img{
+      width: 90px;
+    }
+  }
+}
+
+.phone-icon{
+  font-size: 19px;
+}

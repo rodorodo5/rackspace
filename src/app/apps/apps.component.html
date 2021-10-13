@@ -1,0 +1,103 @@
+<div class="apps_container">
+  <div class="row pb--15 mb--15 border-bottom">
+    <h3 class="txt txt--big txt--blue">Choose your apps</h3>
+  </div>
+  <div class="alert alert-info">
+    <span class="material-icons info-icon">info</span>
+    <p class="txt txt--sm txt--l--blue"><strong>Don't forget:</strong> You can mix Rackspace Email and Microsoft Exchange mailboxes on the same domain! Find the right balance for your organization.</p>
+    <div class="alert-dismissable">
+      <button type="button" class="alert-dissmissable" class="close">×</button>
+    </div>
+  </div>
+  <div class="row mt--20 col--gap--20">
+    <div class="email">
+      <div class="email-box" [class.selected]="email.selected" *ngFor="let email of emailArray; let i = index">
+        <div class="row center-items col--gap--5">
+          <input type="checkbox" [value]="email.selected" (click)="selectEmail(i)">
+          <span class="material-icons email-icon">email</span>
+          <span class="txt txt--med txt--darkgray">{{email.name}}</span>
+        </div>
+        <div class="form__group mt--10" *ngIf="email.types.length > 1">
+          <select class="form__control form__control--select" (change)="selectChange(i,$event)">
+            <option [value]="y" *ngFor="let type of email.types;let y = index;">{{type.name}}</option>
+          </select>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt--sm txt--darkgray">Price</th>
+              <th class="txt--sm txt--darkgray">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p class="txt txt--sm txt--darkgray"><strong>${{email.current_price | number : '1.2-2'}} Per Mailbox Per Month</strong></p>
+                <span class="txt txt--xsm txt--darkgray">Need 200+ boxes? <span chat="">Chat</span> with us or call 1-866-201-7852</span>
+              </td>
+              <td>
+                <input
+                  (keyup)="quantityChange(i, $event)"
+                  [value]="email.current_quantity"
+                  OnlyNumber
+                  type="text"
+                  class="form__control in_qty"
+                  placeholder="1"
+                  [ngClass]="{'form__control--invalid': email.error}" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="email.error">
+          <p class="txt txt--xsm txt--red">For 50+ mailboxes, call for a quote.</p>
+        </div>
+        <div class="">
+          <span class="txt txt--xsm txt--darkgray">​Rackspace Email is a business-class, POP/IMAP service that works with Outlook. It also includes a Webmail Application Suite featuring shared Calendars and a Global Address List.</span>
+        </div>
+      </div>
+      <div class="row flex--end">
+        <button class="btn btn--blue" [disabled]="nextDisabled" [class.btn--disabled]="nextDisabled" (click)="goNext()">Next</button>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="row mb--15">
+        <span class="txt txt--med txt--blue">Summary</span>
+      </div>
+      <div id="summary">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt--sm txt--darkgray">Item</th>
+              <th class="txt--sm txt--darkgray center-cell">Quantity</th>
+              <th class="txt--sm txt--darkgray text--left">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let total of finalArray">
+              <td>
+                <p class="txt txt--sm txt--darkgray">{{total.name}}</p>
+              </td>
+              <td class="center-cell">
+                <p class="txt txt--sm txt--darkgray">{{total.current_quantity}}</p>
+              </td>
+              <td>
+                <p class="txt txt--sm txt--darkgray">${{(total.current_quantity * total.current_price) | number : '1.2-2'}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="no-border pr--10">
+                <span class="pull-right"><p class="txt txt--sm txt--darkgray"><strong>Estimated Monthly Total:</strong></p></span>
+              </td>
+              <td class="no-border">
+                <p class="txt txt--sm txt--darkgray"><strong>${{grandTotal | number : '1.2-2'}}</strong></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <p class="txt txt--sm txt--darkgray">All Rackspace customer admins will have access to our award-winning email and collaboration specialists. Your first 14 days are free! Charges will be assessed on 10/27/2021 based on the number of provisioned products on your account at that time. Rackspace Cloud Office requires a monthly minimum spend of $10.00. Prices exclude VAT, GST, or applicable taxes.        </p>
+      </div>
+    </div>
+  </div>
+</div>

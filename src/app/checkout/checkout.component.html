@@ -1,0 +1,198 @@
+<div class="apps_container">
+  <div class="row pb--15 mb--15 border-bottom">
+    <h3 class="txt txt--big txt--blue">Checkout</h3>
+  </div>
+
+  <div class="row mt--20 col--gap--20">
+    <div class="sideform">
+      <form class="form form--col-2" [formGroup]="form">
+        <div class="row col--gap--20">
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              First Name
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input formControlName="firstname" type="text" class="form__control"
+              [ngClass]="{'form__control--invalid': submitted && f.firstname.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.firstname.errors && submitted">Please enter your first name.
+            </p>
+          </div>
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              Last Name
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input type="text" class="form__control" formControlName="lastname"
+              [ngClass]="{'form__control--invalid': submitted && f.lastname.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.lastname.errors && submitted">Please enter your last name.
+            </p>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <p class="form__label">
+            Email
+            <span class="required">
+              *
+            </span>
+          </p>
+          <input type="text" class="form__control" formControlName="email"
+            [ngClass]="{'form__control--invalid': submitted && f.email.errors}" />
+          <p class="txt txt--xsm txt--red mt--5" *ngIf="f.email.errors && submitted">Please enter a correct email.</p>
+        </div>
+        <div class="form__group form__group--span-3">
+          <p class="form__label">
+            Credit Card Number
+            <span class="required">
+              *
+            </span>
+          </p>
+          <input OnlyNumber credit-card type="text" class="form__control" formControlName="creditcard"
+            [ngClass]="{'form__control--invalid': submitted && f.creditcard.errors}" />
+          <p class="txt txt--xsm txt--red mt--5" *ngIf="f.creditcard.errors && submitted">Please enter a valid credit
+            card number</p>
+        </div>
+        <div class="row col--gap--20">
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              CC Expiration Date
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input (keyup)="expirationValidation($event)" type="text" class="form__control" formControlName="expiration"
+              [ngClass]="{'form__control--invalid': submitted && f.expiration.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.expiration.errors && submitted">Enter a valid expiration
+              date</p>
+          </div>
+
+
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              CVV Code
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input OnlyNumber [maxlength]="4" type="text" class="form__control" formControlName="cvv"
+              [ngClass]="{'form__control--invalid': submitted && f.cvv.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.cvv.errors && submitted">Please enter a valid CVV Code</p>
+          </div>
+        </div>
+        <div class="row col--gap--20">
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              Billing Address
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input type="text" class="form__control" formControlName="billing"
+              [ngClass]="{'form__control--invalid': submitted && f.billing.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.billing.errors && submitted">Please enter a valid address
+            </p>
+          </div>
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              City
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input type="text" class="form__control" formControlName="city"
+              [ngClass]="{'form__control--invalid': submitted && f.city.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.city.errors && submitted">Please enter a city</p>
+          </div>
+        </div>
+
+        <div class="row col--gap--20">
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              State
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input type="text" class="form__control" formControlName="state"
+              [ngClass]="{'form__control--invalid': submitted && f.state.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.state.errors && submitted">Please enter a state</p>
+          </div>
+          <div class="form__group form__group--half">
+            <p class="form__label">
+              Zip Code
+              <span class="required">
+                *
+              </span>
+            </p>
+            <input OnlyNumber type="text" class="form__control" formControlName="zip"
+              [ngClass]="{'form__control--invalid': submitted && f.zip.errors}" />
+            <p class="txt txt--xsm txt--red mt--5" *ngIf="f.zip.errors && submitted">Please enter a valid zip</p>
+          </div>
+        </div>
+
+
+
+
+      </form>
+      <div class="row flex--end mt--20">
+        <!-- [class.btn--disabled]="" -->
+        <button class="btn btn--blue" [disabled]="" (click)="submit()">Purchase</button>
+      </div>
+
+      <div class="row flex--end mt--20" *ngIf="postError">
+        <p class="txt txt--xsm txt--red mt--5" >There has been an error please check your information.</p>
+      </div>
+      
+    </div>
+    <div class="summary">
+      <div class="row mb--15">
+        <span class="txt txt--med txt--blue">Summary</span>
+      </div>
+      <div id="summary">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt--sm txt--darkgray">Item</th>
+              <th class="txt--sm txt--darkgray center-cell">Quantity</th>
+              <th class="txt--sm txt--darkgray text--left">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let total of finalArray">
+              <td>
+                <p class="txt txt--sm txt--darkgray">{{total.name}}</p>
+              </td>
+              <td class="center-cell">
+                <p class="txt txt--sm txt--darkgray">{{total.current_quantity}}</p>
+              </td>
+              <td>
+                <p class="txt txt--sm txt--darkgray">${{(total.current_quantity * total.current_price) | number :
+                  '1.2-2'}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="no-border pr--10">
+                <span class="pull-right">
+                  <p class="txt txt--sm txt--darkgray"><strong>Estimated Monthly Total:</strong></p>
+                </span>
+              </td>
+              <td class="no-border">
+                <p class="txt txt--sm txt--darkgray"><strong>${{grandTotal | number : '1.2-2'}}</strong></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <p class="txt txt--sm txt--darkgray">All Rackspace customer admins will have access to our award-winning email
+          and collaboration specialists. Your first 14 days are free! Charges will be assessed on 10/27/2021 based on
+          the number of provisioned products on your account at that time. Rackspace Cloud Office requires a monthly
+          minimum spend of $10.00. Prices exclude VAT, GST, or applicable taxes. </p>
+      </div>
+    </div>
+  </div>
+</div>
